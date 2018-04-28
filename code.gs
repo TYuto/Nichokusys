@@ -1,5 +1,5 @@
 function myFunction() {
-  var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+  var spreadsheet = SpreadsheetApp.openById(spredSheetID);
   var sheet = spreadsheet.getActiveSheet();
   function ReturnNowNichoku(){
     var Nichoku =[]
@@ -46,5 +46,6 @@ function myFunction() {
     "payload" : payload
   };
 
-  UrlFetchApp.fetch("うらる", options);
+  //UrlFetchApp.fetch(,slackApiUrl options);
 }
+

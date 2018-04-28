@@ -1,12 +1,12 @@
 function myFunction() {
-  var spreadsheet = SpreadsheetApp.openById(spredSheetID);
-  var sheet = spreadsheet.getActiveSheet();
+  var ss = SpreadsheetApp.openById(spredSheetID);
+  var sheet = ss.getActiveSheet();
   function ReturnNowNichoku(){
     var Nichoku =[]
     var c=0
     for(var i=1;i<42;i++){
-      if (sheet.getRange(i,4).getValue() == "*" && c<2){
-        sheet.getRange(i,4).setValue("")
+      if (sheet.getRange(i,nichokuColumn).getValue() == "*" && c<2){
+        sheet.getRange(i,nichokuColumn).setValue("")
         Nichoku.push(i)
       }
     }
@@ -25,15 +25,15 @@ function myFunction() {
     }
     else if (old==41){i=2}
     else{i=old+2}
-    sheet.getRange(i,4).setValue("*")
-    news.push(sheet.getRange(i,3).getValue())
+    sheet.getRange(i,nichokuColumn).setValue("*")
+    news.push(sheet.getRange(i,nameColumn).getValue())
   });
   Logger.log(news)
 
   var jsonData =
   {
      "username" : "日直bot",
-     "icon_emoji": "hatching_chick:",
+     "icon_emoji": "vim2:",
      "text" : ("今日の日直は"+news[0]+"さん,"+news[1]+"さんです.")
   };
   

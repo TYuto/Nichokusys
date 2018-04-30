@@ -5,9 +5,9 @@
 
 ## how to use
 
-GASで実行してください
-
-config.gsに以下を書き込むことで実行できます
+クラス全員の名前が書かれたスプレッドシートを用意してください.
+gasで新しいプロジェクトを作りcode.gsを追加してください
+config.gsに以下を書き込むことで実行できるようになります
 
 * spredSheetID
   * クラスの名前が書かれたスプレッドシートのurlの　docs.google.com/spreadsheets/d/ここの部分/~
@@ -21,6 +21,7 @@ config.gsに以下を書き込むことで実行できます
   * クラスの人数
 
 ### example
+
 ```config.gs
 var spredSheetID = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGH";
 var slackApiUrl = "https://hooks.slack.com/services/hogepiyofuga";

@@ -18,7 +18,7 @@ function sendSlack(text)
 }
 
 
-function myFunction() {
+function main() {
   var ss = SpreadsheetApp.openById(spredSheetID);
   var sheet = ss.getActiveSheet();	
   var nameArray = sheet.getRange("C1:C40").getValues();
@@ -26,17 +26,22 @@ function myFunction() {
   var olds = [];  
   for(var i=0;i<classNum;i++){
     if (nichokuArray[i] =="*"){
-      olds.push(i+1)
+      olds.push(i)
     }
   }
   var nows = [];
   olds.forEach(function(old)
     {
-      sheet.getRange(old, nichokuColumn).setValue("");
-      var now = (old+2<=classNum ? old+2:old+2-classNum)
-      sheet.getRange(now, nichokuColumn).setValue("*");
-      nows.push(nameArray[now-1])
+      nichokuArray[old] = "";
+      var now = (old+2<classNum ? old+2:old+2-classNum)
+      nichokuArray[now] = "*"
+      nows.push(nameArray[now])
     });
+  var ary = [];
+  for (var i=0; i<40; i++) {
+    ary.push([nichokuArray[i]]);
+  }
+  sheet.getRange("D1:D40").setValues(ary);
   
   sendSlack("今日の日直は"+nows[0]+"さん,"+nows[1]+"さんです.")
 }

@@ -40,3 +40,8 @@ var classNum = 40;
 | ・|・ |・ |・ |
 | | |name39 | |
 | | |name40 | |
+
+
+## License
+MIT
+

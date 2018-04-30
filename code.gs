@@ -1,16 +1,3 @@
-function returnNichoku(sheet)
-{
-  var Nichoku =[]
-  var c=0
-  for(var i=1;i<42;i++)
-  {
-    if (sheet.getRange(i,nichokuColumn).getValue() == "*" && c<2)
-    {
-      Nichoku.push(i)
-    }
-  }
-  return Nichoku;
-}
 
 function forwardNichoku(olds,sheet)
 {
@@ -40,15 +27,26 @@ function sendSlack(text)
     "contentType" : "application/json",
     "payload" : payload
   };
-  UrlFetchApp.fetch(slackApiUrl, options);
+  //UrlFetchApp.fetch(slackApiUrl, options);
 }
 
 
 function myFunction() {
   var ss = SpreadsheetApp.openById(spredSheetID);
-  var sheet = ss.getActiveSheet();
-  
-  var olds = returnNichoku(sheet);
+  var sheet = ss.getActiveSheet();	
+  var nameArray = sheet.getRange("C1:C40").getValues();
+  var nichokuArray = sheet.getRange("D1:D40").getValues(); 
+  Logger.log(nichokuArray)
+  var olds = [];  
+  for(var i=0;i<classNum;i++){
+    if (nichokuArray[i] =="*"){
+      Logger.log(nichokuArray[i]);
+      Logger.log(i);
+      olds.push(i+1)
+    }
+  }
+  Logger.log(olds);
+ 
   var nows = forwardNichoku(olds,sheet);
   
   sendSlack("今日の日直は"+nows[0]+"さん,"+nows[1]+"さんです.")

@@ -81,13 +81,13 @@ function delTrigger() {
 }
 
 function main() {
-  delTrigger()
+  //delTrigger()
   
   var ss = SpreadsheetApp.openById(spredSheetID);
   var sheet = ss.getActiveSheet();	
   var nameArray = sheet.getRange("C1:C40").getValues();
   var nichokuArray = sheet.getRange("D1:D40").getValues();
-  var userIdArray = sheet.getRange("E1:E40").getValue();
+  var userIdArray = sheet.getRange("E1:E40").getValues();
   
   var olds = [];  
   for(var i=0;i<classNum;i++){
@@ -112,8 +112,8 @@ function main() {
   }
   sheet.getRange("D1:D40").setValues(ary);
   
-  sendSlack("今日の日直は"+nows[0]+"さん,"+nows[1]+"さんです.\n<@"+ids[0]+"><@"+ids[1]+">")
+  sendSlack("今日の日直は"+nows[0]+"さん,"+nows[1]+"さんです.\n<@"+ids[0]+"> <@"+ids[1]+">")
   
-  setTrigger();
+  //setTrigger();
 }
 

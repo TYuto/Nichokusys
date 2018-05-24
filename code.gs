@@ -21,7 +21,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-
 function sendSlack(text)
 {
   var jsonData =
@@ -41,6 +40,9 @@ function sendSlack(text)
   UrlFetchApp.fetch(slackApiUrl, options);
 }
 
+function debug(){
+  
+}
 function isHoliday(date){
   var weekInt = date.getDay();
   if(weekInt <= 0 || 6 <= weekInt){
@@ -84,7 +86,8 @@ function main() {
   var ss = SpreadsheetApp.openById(spredSheetID);
   var sheet = ss.getActiveSheet();	
   var nameArray = sheet.getRange("C1:C40").getValues();
-  var nichokuArray = sheet.getRange("D1:D40").getValues(); 
+  var nichokuArray = sheet.getRange("D1:D40").getValues();
+  var userIdArray = sheet.getRange("E1:E40").getValue();
   
   var olds = [];  
   for(var i=0;i<classNum;i++){
@@ -94,12 +97,14 @@ function main() {
   }
   
   var nows = [];
+  var ids = [];
   olds.forEach(function(old)
     {
       nichokuArray[old] = "";
       var now = (old+2<classNum ? old+2:old+2-classNum)
-      nichokuArray[now] = "*"
-      nows.push(nameArray[now])
+      nichokuArray[now] = "*";
+      nows.push(nameArray[now]);
+      ids.push(userIdArray[now]);
     });
   var ary = [];
   for (var i=0; i<40; i++) {
@@ -107,9 +112,8 @@ function main() {
   }
   sheet.getRange("D1:D40").setValues(ary);
   
-  sendSlack("今日の日直は"+nows[0]+"さん,"+nows[1]+"さんです.")
+  sendSlack("今日の日直は"+nows[0]+"さん,"+nows[1]+"さんです.\n<@"+ids[0]+"><@"+ids[1]+">")
   
   setTrigger();
 }
-
 
